@@ -1,9 +1,11 @@
 package net.stayke.itch;
 
+import net.stayke.itch.message.ItchMessage;
 import net.stayke.itch.abstr.ItchSource;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.util.Arrays;
 
@@ -12,32 +14,45 @@ import java.util.Arrays;
  *
  *
  */
-public class FileSource implements ItchSource {
+public class FileSource extends ItchSource {
 
-    private File source;
     private byte[] buffer;
-    private int pos;
-
-    FileSource(File source) {
-
-        this.source = source;
-    }
+    private int offset = 0;
 
     @Override
-    public byte[] read(int count) {
+    public byte[] next() {
 
-        if (pos >= buffer.length) {
-            return new byte[0];
+        if (offset == 0) {
+            return firstMessage();
         }
 
-        int end = pos + count;
-        if (end > buffer.length) {
-            end = buffer.length;
+        if (offset >= buffer.length) {
+            return null;
         }
 
-        pos += end;
+        byte[] byteLen = {buffer[offset], buffer[offset+1]};
+        short len = ByteBuffer.wrap(byteLen).getShort();
 
-        return Arrays.copyOfRange(buffer, pos - end, end);
+        byte[] msg = Arrays.copyOfRange(buffer, offset, offset + len);
+
+        offset += len + 2;
+
+        return msg;
+    }
+
+    // Used to read the first message from a source, when we don't know
+    // a length or start byte.
+    private byte[] firstMessage() {
+        byte[] byteLen = {buffer[0], buffer[1]};
+
+        short len = ByteBuffer.wrap(byteLen).getShort();
+
+        // XXX catch bad file
+        byte[] msg = Arrays.copyOfRange(buffer, 0, len);
+
+        offset += len + 2;
+
+        return msg;
     }
 
     // XXX remove
@@ -49,7 +64,6 @@ public class FileSource implements ItchSource {
             throw new IOException("Bad path: " + path);
         }
 
-        Files.readAllBytes(f.toPath());
+        buffer = Files.readAllBytes(f.toPath());
     }
-
 }

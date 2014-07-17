@@ -6,7 +6,6 @@ package net.stayke.itch.abstr;
  *
  */
 public interface ItchSource {
-
-    // Get @count of bytes from source.
-    byte[] read(int count);
+    // Get next message from source
+    public abstract byte[] next();
 }
