@@ -1,6 +1,7 @@
 package net.stayke.itch;
 
-import net.stayke.itch.message.ItchMessage;
+import net.stayke.itch.abstr.ItchMessage;
+import net.stayke.itch.messages.SystemMessage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,14 +25,14 @@ public class ItchTest {
 
     @Test
     public void testCompareSomeMessages() {
-        Itch itch = new Itch(source);
 
-        ItchMessage msg = itch.next();
-        Assert.assertEquals(msg.len, 12);
-        Assert.assertEquals(msg.msgType, 'S');
+        ItchParser itch = new ItchParser(source);
 
-        msg = itch.next();
-        Assert.assertEquals(msg.len, 39);
-        Assert.assertEquals(msg.msgType, 'R');
+        for (;;) {
+            ItchMessage msg = itch.next();
+            if (msg.IDENT == SystemMessage.IDENT) {
+                System.out.println(msg.SystemMessage());
+            }
+        }
     }
 }

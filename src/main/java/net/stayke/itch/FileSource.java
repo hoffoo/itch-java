@@ -1,6 +1,5 @@
 package net.stayke.itch;
 
-import net.stayke.itch.message.ItchMessage;
 import net.stayke.itch.abstr.ItchSource;
 
 import java.io.File;
@@ -12,9 +11,8 @@ import java.util.Arrays;
 /**
  * Created by marin on 7/16/14
  *
- *
  */
-public class FileSource extends ItchSource {
+public class FileSource implements ItchSource {
 
     private byte[] buffer;
     private int offset = 0;
@@ -33,7 +31,7 @@ public class FileSource extends ItchSource {
         byte[] byteLen = {buffer[offset], buffer[offset+1]};
         short len = ByteBuffer.wrap(byteLen).getShort();
 
-        byte[] msg = Arrays.copyOfRange(buffer, offset, offset + len);
+        byte[] msg = Arrays.copyOfRange(buffer, offset, offset + len + 2);
 
         offset += len + 2;
 
@@ -48,9 +46,9 @@ public class FileSource extends ItchSource {
         short len = ByteBuffer.wrap(byteLen).getShort();
 
         // XXX catch bad file
-        byte[] msg = Arrays.copyOfRange(buffer, 0, len);
+        byte[] msg = Arrays.copyOfRange(buffer, 0, len + 2);
 
-        offset += len + 2;
+        offset = len + 2;
 
         return msg;
     }
