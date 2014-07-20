@@ -76,4 +76,7 @@ public class ItchMessage {
     }
 
 
+    public final StockTradingMessage toStockTradingMessage() {
+        return new StockTradingMessage(data, IDENT);
+    }
 }

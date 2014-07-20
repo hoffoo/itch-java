@@ -1,6 +1,9 @@
 package net.stayke.itch;
 
 import net.stayke.itch.messages.ItchMessage;
+import net.stayke.itch.messages.StockDirectoryMessage;
+import net.stayke.itch.messages.StockTradingMessage;
+import net.stayke.itch.messages.SystemMessage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,22 +27,28 @@ public class ItchTest {
     }
 
     @Test
-    public void testCompareSomeMessages() {
+    public void testPrintSome() {
 
         ItchParser itch = new ItchParser(source);
 
         for (;;) {
             ItchMessage msg = itch.next();
+
             if (msg == null) {
                 System.out.println("End of messages.");
                 break;
             }
-            if (msg.isSystemMessage()) {
-                System.out.println(msg.toSystemMessage());
-            }
 
-            if (msg.isStockDirectoryMessage()) {
+            switch(msg.IDENT) {
+            case SystemMessage.IDENT:
+                System.out.println(msg.toSystemMessage());
+                break;
+            case StockDirectoryMessage.IDENT:
                 System.out.println(msg.toStockDirectoryMessage());
+                break;
+            case StockTradingMessage.IDENT:
+                System.out.println(msg.toStockTradingMessage());
+                break;
             }
         }
     }

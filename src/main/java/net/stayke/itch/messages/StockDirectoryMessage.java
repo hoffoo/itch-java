@@ -19,8 +19,9 @@ public class StockDirectoryMessage extends ItchMessage {
 
     public StockDirectoryMessage(byte[] data, char ident) {
         super(data, ident);
+        ByteBuffer buf = ByteBuffer.wrap(data);
         this.market = Market.get((char)data[13]);
-        this.symbol = getStockSymbol(data);
+        this.symbol = MessageUtils.AsString(buf, 5, 13);
         this.compliance = Compliance.get((char)data[14]);
         this.lotSize = getLotSize(data);
         this.lotsType = LotsType.get((char)data[19]);
@@ -28,7 +29,7 @@ public class StockDirectoryMessage extends ItchMessage {
 
     @Override
     public String toString() {
-        return this.market + " - " + this.symbol + ": " + this.compliance + ", lots: " + this.lotSize;
+        return this.symbol + ": " + this.compliance;
     }
 
     public enum Market {
@@ -98,17 +99,6 @@ public class StockDirectoryMessage extends ItchMessage {
             }
             return null;
         }
-    }
-
-    private static String getStockSymbol(byte[] data) {
-        char[] symbol = new char[8];
-
-        // XXX skip loop
-        for (int i = 0; i < 8; i++) {
-            symbol[i] = (char)data[i + 5];
-        }
-
-        return new String(symbol);
     }
 
     public static int getLotSize(byte[] data) {
