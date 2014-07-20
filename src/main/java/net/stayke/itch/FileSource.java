@@ -31,9 +31,9 @@ public class FileSource implements ItchSource {
         byte[] byteLen = {buffer[offset], buffer[offset+1]};
         short len = ByteBuffer.wrap(byteLen).getShort();
 
-        byte[] msg = Arrays.copyOfRange(buffer, offset, offset + len + 2);
+        byte[] msg = Arrays.copyOfRange(buffer, offset + 2, offset + 2 + len);
 
-        offset += len + 2;
+        offset += 2 + len;
 
         return msg;
     }
@@ -46,9 +46,9 @@ public class FileSource implements ItchSource {
         short len = ByteBuffer.wrap(byteLen).getShort();
 
         // XXX catch bad file
-        byte[] msg = Arrays.copyOfRange(buffer, 0, len + 2);
+        byte[] msg = Arrays.copyOfRange(buffer, 2, 2 + len);
 
-        offset = len + 2;
+        offset = 2 + len;
 
         return msg;
     }
