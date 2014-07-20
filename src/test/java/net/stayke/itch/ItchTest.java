@@ -7,7 +7,6 @@ import net.stayke.itch.messages.SystemMessage;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import java.io.IOException;
 

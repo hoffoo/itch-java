@@ -10,8 +10,8 @@ public class SystemMessage extends ItchMessage {
     public final static char IDENT = 'S';
     public final Event event;
 
-    public SystemMessage(byte[] data, char ident) {
-        super(data, ident);
+    public SystemMessage(byte[] data) {
+        super(data, IDENT);
         this.event = Event.get((char)data[5]);
     }
 

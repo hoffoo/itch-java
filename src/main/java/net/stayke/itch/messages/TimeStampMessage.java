@@ -7,10 +7,10 @@ package net.stayke.itch.messages;
  */
 public class TimeStampMessage extends ItchMessage {
 
-    final static char IDENT = 'T';
+    public final static char IDENT = 'T';
 
-    public TimeStampMessage(byte[] data, char ident) {
-        super(data, ident);
+    public TimeStampMessage(byte[] data) {
+        super(data, IDENT);
     }
 
     @Override

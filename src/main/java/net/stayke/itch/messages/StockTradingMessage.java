@@ -6,7 +6,7 @@ import java.nio.charset.Charset;
 /**
  * Created by marin on 7/19/14
  *
- *
+ * StockTradingMessage: Section 4.3.2
  */
 public class StockTradingMessage extends ItchMessage {
 
@@ -16,8 +16,8 @@ public class StockTradingMessage extends ItchMessage {
     public final State state;
     public final String reason;
 
-    public StockTradingMessage(byte[] data, char ident) {
-        super(data, ident);
+    public StockTradingMessage(byte[] data) {
+        super(data, IDENT);
         ByteBuffer buf = ByteBuffer.wrap(data);
         stock = MessageUtils.AsString(buf, 5, 12);
         state = State.get((char)data[13]);

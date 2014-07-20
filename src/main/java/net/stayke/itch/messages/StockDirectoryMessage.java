@@ -17,8 +17,8 @@ public class StockDirectoryMessage extends ItchMessage {
     public final int lotSize;
     public final LotsType lotsType;
 
-    public StockDirectoryMessage(byte[] data, char ident) {
-        super(data, ident);
+    public StockDirectoryMessage(byte[] data) {
+        super(data, IDENT);
         ByteBuffer buf = ByteBuffer.wrap(data);
         this.market = Market.get((char)data[13]);
         this.symbol = MessageUtils.AsString(buf, 5, 13);
