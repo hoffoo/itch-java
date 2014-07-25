@@ -48,6 +48,9 @@ public class ItchTest {
             case SHORestrictionMessage.IDENT:
                 System.out.println(msg.toSHORestrictionMessage());
                 break;
+            case MarketParticipantPositionMessage.IDENT:
+                System.out.println(msg.toMarketParticipantPositionMessage());
+                break;
             }
         }
     }

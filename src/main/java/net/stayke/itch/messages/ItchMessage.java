@@ -65,4 +65,13 @@ public class ItchMessage {
     public final SHORestrictionMessage toSHORestrictionMessage() {
         return new SHORestrictionMessage(data);
     }
+
+    /**
+     * Returns message as a MarketParticipantPositionMessage
+     *
+     * @see net.stayke.itch.messages.MarketParticipantPositionMessage
+     */
+    public final MarketParticipantPositionMessage toMarketParticipantPositionMessage() {
+        return new MarketParticipantPositionMessage(data);
+    }
 }
