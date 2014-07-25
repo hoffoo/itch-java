@@ -1,9 +1,6 @@
 package net.stayke.itch;
 
-import net.stayke.itch.messages.ItchMessage;
-import net.stayke.itch.messages.StockDirectoryMessage;
-import net.stayke.itch.messages.StockTradingMessage;
-import net.stayke.itch.messages.SystemMessage;
+import net.stayke.itch.messages.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,6 +44,9 @@ public class ItchTest {
                 break;
             case StockTradingMessage.IDENT:
                 System.out.println(msg.toStockTradingMessage());
+                break;
+            case SHORestrictionMessage.IDENT:
+                System.out.println(msg.toSHORestrictionMessage());
                 break;
             }
         }

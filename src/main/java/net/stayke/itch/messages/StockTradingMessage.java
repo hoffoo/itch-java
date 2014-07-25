@@ -21,7 +21,7 @@ public class StockTradingMessage extends ItchMessage {
         ByteBuffer buf = ByteBuffer.wrap(data);
         stock = MessageUtils.AsString(buf, 5, 12);
         state = State.get((char)data[13]);
-        reason = MessageUtils.AsString(buf, 15, 19);
+        reason = MessageUtils.AsString(buf, 15, 18);
     }
 
     enum State {

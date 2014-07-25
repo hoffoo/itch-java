@@ -21,6 +21,14 @@ abstract class MessageUtils {
         return str;
     }
 
+    public static int AsInt(ByteBuffer buf, int at) {
+        return (int)buf.get(at);
+    }
+
+    public static char AsChar(ByteBuffer buf, int at) {
+        return (char)buf.get(at);
+    }
+
     private static void undo(ByteBuffer buf) {
         buf.limit(buf.capacity());
         buf.rewind();

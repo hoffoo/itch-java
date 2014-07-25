@@ -56,4 +56,13 @@ public class ItchMessage {
     public final StockTradingMessage toStockTradingMessage() {
         return new StockTradingMessage(data);
     }
+
+    /**
+     * Returns message as a SHORestrictionMessage
+     *
+     * @see net.stayke.itch.messages.SHORestrictionMessage
+     */
+    public final SHORestrictionMessage toSHORestrictionMessage() {
+        return new SHORestrictionMessage(data);
+    }
 }
